@@ -9,7 +9,7 @@ def multiply(x, y):
 
 def divide(x, y):
     result = x / y
-    return round(result)
+    return round(result, 1)
 
 
 def round_up(x):
