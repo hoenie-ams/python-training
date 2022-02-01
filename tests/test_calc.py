@@ -1,6 +1,6 @@
 import pytest
 
-from src.calc import divide, round_up, multiply
+from src.d4_calc_with_pytest import divide, round_up, multiply
 
 
 def test_multiply():
