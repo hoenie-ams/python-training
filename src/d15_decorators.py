@@ -5,43 +5,70 @@ Demo of decorators. Examples:
 @property
 """
 
-def say_hello():
-    print("hello, how are you?")
-    return None
+# def say_hello():
+#     print("hello, how are you?")
+#     return None
+#
+# # 1. Functions as objects
+# greet = say_hello
+# greet()
+#
+#
+# # 2. Functions as arguments
+# def my_simple_decorator(func):
+#     print("decorating the function")
+#     func()
+#
+# my_simple_decorator(say_hello)
+#
+#
+# def my_decorator(func):
+#     def wrapper():
+#         print("before calling the function")
+#         func()
+#         print("after calling the function")
+#     return wrapper
+#
+#
+# say_hello = my_decorator(say_hello)
+# say_hello()
+#
+#
+# @my_decorator
+# def say_hello():
+#     print("hello, how are you?")
+#
+# say_hello()
+#
+# @my_decorator
+# def say_bye():
+#     print("bye bye")
+#
+# say_bye()
 
-# 1. Functions as objects
-greet = say_hello
-greet()
+import time
+from functools import wraps
 
-
-# 2. Functions as arguments
-def my_simple_decorator(func):
-    print("decorating the function")
-    func()
-
-my_simple_decorator(say_hello)
-
-
-def my_decorator(func):
+def timer(func):
+    print(func)
     def wrapper():
-        print("before calling the function")
-        func()
-        print("after calling the function")
-    return wrapper
+        """"""
+        start_time = time.perf_counter()
+        result = func()
+        end_time = time.perf_counter()
+        print(f'Run time was {end_time-start_time} seconds.')
+        return result
+    return wrapper  # callable
 
 
-say_hello = my_decorator(say_hello)
-say_hello()
+@timer
+def do_something():
+    """Toy function to keep Python busy"""
+    "-".join(str(n) for n in range(1000))
 
 
-@my_decorator
-def say_hello():
-    print("hello, how are you?")
+do_something()
 
-say_hello()
 
-@my_decorator
-def say_bye():
-    print("bye bye")
+do_something = timer(do_something)
 
-say_bye()
