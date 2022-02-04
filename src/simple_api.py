@@ -1,6 +1,7 @@
 """
 Example of FastAPI app
 """
+from typing import Optional
 
 from fastapi import FastAPI, HTTPException
 from sqlmodel import Field, Session, SQLModel, create_engine, select
@@ -10,7 +11,7 @@ app = FastAPI()
 
 class Product(SQLModel, table=True):
     __tablename__ = "products"
-    id: int = Field(primary_key=True)
+    id: Optional[int] = Field(primary_key=True, default=None, )
     name: str = Field(default=None)
     price: int = Field(default=None)
 
@@ -47,6 +48,7 @@ def read_product(product_id: int):
         if not product:
             raise HTTPException(status_code=404, detail="Product not found")
     return product
+
 
 @app.post("/products/")
 def create_product(product: Product):
